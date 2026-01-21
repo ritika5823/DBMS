@@ -1,0 +1,27 @@
+1. create a table st_info with attributes prn, name, m1, m2, m3
+     1.create table st_info(prn int, name varchar2(20),m1 number, m2 number, m3 number);
+     => table created (output)
+     2.select * from tab; # this will display no of tables present in the databased
+     3.select * from st_info; # this shows content in the table
+     4.desc st_info; # this will display the structure of the table
+     =>   output for this table :   
+       SQL> desc st_info;  #comand
+       Name                                      Null?    Type
+      ----------------------------------------- -------- ----------------------------
+       PRN                                                NUMBER(38)
+       NAME                                               VARCHAR2(20)
+       M1                                                 NUMBER
+       M2                                                 NUMBER
+       M3                                                 NUMBER
+2. Insert at least 10 rows in the table
+     1.insert into ST_INFO (prn, name, m1, m2, m3) values(102,'ritika', 123, 234, 345);
+     #generates one column at a time 
+     2.select * from st_info; # use this to veiw table
+3. Add attributes total and perc to the table
+     1.alter table st_info add total number;
+     2.alter table st_info add perc number;
+     3.select * from st_info; # use this to veiw table
+4. Calculate total & perc
+     1. update st_info set total=m1+m2+m3;
+     2. update st_info set perc = total/3;
+     3.select * from st_info; # use this to veiw table
