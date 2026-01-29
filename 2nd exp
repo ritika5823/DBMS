@@ -243,3 +243,64 @@ SQL> INSERT INTO COURSE (course_id, title, dept_id, credits) VALUES
   2  ('CS-002', 'Weekly test', 1, 4);
 SQL> delete from course where course_id = 'CS-002';
     output = 1 row deleted.
+SQL> create sequence emp_seq start with 1 increment by 1;
+    Output = Sequence created.
+#to create table and to insert item in sequence
+SQL> create table map(emp_id int primary key, name varchar2(20), mobile int);
+     Output =Table created.
+SQL> insert into map(emp_id, name, mobile)  values (emp_seq.nextval, 'xyz', 8976678991);
+     insert into map(emp_id, name, mobile)  values (emp_seq.nextval, 'xyz1', 8976678991);
+     insert into map(emp_id, name, mobile)  values (emp_seq.nextval, 'xyz2', 8976678991);
+     insert into map(emp_id, name, mobile)  values (emp_seq.nextval, 'xyz3', 8976678991);
+     insert into map(emp_id, name, mobile)  values (emp_seq.nextval, 'xyz4', 8976678991);
+     insert into map(emp_id, name, mobile)  values (emp_seq.nextval, 'xyz5', 8976678991);
+SQL> drop sequence emp_seq;
+   output = sequence dropped #after this we cant add anything in the sequence
+SQL> select * from map;
+   output = 
+SQL> select * from map;
+    EMP_ID NAME                     MOBILE
+---------- -------------------- ----------
+         1 xyz                  8976678991
+         2 xyz1                 8976678991
+         3 xyz2                 8976678991
+         4 xyz3                 8976678991
+         5 xyz4                 8976678991
+         6 xyz                  8976678991
+SQL> create sequence emp2_seq start with 7 increment by 1;
+# using 7 because in table map there 6 row already in it 
+     ooutput = Sequence created.
+SQL> insert into map(emp_id, name, mobile) values (emp2_seq.nextval, 'xyz5', 8976678991);
+      output = 1 row created.
+SQL> select * from map;
+    EMP_ID NAME                     MOBILE
+---------- -------------------- ----------
+         1 xyz                  8976678991
+         2 xyz1                 8976678991
+         3 xyz2                 8976678991
+         4 xyz3                 8976678991
+         5 xyz4                 8976678991
+         6 xyz                  8976678991
+         7 xyz5                 8976678991
+7 rows selected.
+SQL> rename map to emp;
+       output = Table renamed.
+SQL> alter table emp rename column mobile to mobilenumber;
+       output = Table altered.
+
+SQL> select * from emp;
+    EMP_ID NAME                 MOBILENUMBER
+---------- -------------------- ------------
+         1 xyz                    8976678991
+         2 xyz1                   8976678991
+         3 xyz2                   8976678991
+         4 xyz3                   8976678991
+         5 xyz4                   8976678991
+         6 xyz                    8976678991
+         7 xyz5                   8976678991
+SQL> alter table emp add pincode number not null;
+alter table emp add pincode number not null
+     output =*ERROR at line 1:
+             ORA-01758: table must be empty to add mandatory (NOT NULL) column
+SQL> commit 
+to save every changes.
