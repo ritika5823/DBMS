@@ -1,0 +1,22 @@
+SYNTAX: 
+CREATE OR REPLACE FUNCTION F_NAME (var1 datatype, var2 datatype, ...) RETURN datatype
+AS
+	var datatype
+BEGIN
+	computation/ calculation
+	output
+END;
+/
+
+
+Q. Calculate square of given number
+CREATE OR REPLACE FUNCTION square1 (n IN NUMBER) RETURN NUMBER
+AS
+	sq NUMBER := 0;
+BEGIN
+	sq := n * n;
+	return sq;
+END;
+/
+execute : select square1(2) from dual;
+
