@@ -1,0 +1,88 @@
+CREATE TABLE emp1 (
+    emp_no INT PRIMARY KEY,
+    birth_date DATE NOT NULL,
+    first_name VARCHAR(14) NOT NULL,
+    last_name VARCHAR(16) NOT NULL,
+    gender varchar2(1) NOT NULL,
+    hire_date DATE NOT NULL,
+    salary FLOAT DEFAULT 7850.00,
+    job VARCHAR(20) NOT NULL,
+    deptno INT,
+    manager_id INT,
+    FOREIGN KEY (deptno) REFERENCES departments(deptno)
+);
+
+INSERT INTO emp1 (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id) VALUES (7839, date'1955-11-17', 'John', 'Smith', 'M', date'1990-06-09', 5000.00, 'MANAGER', 10, NULL);
+INSERT INTO emp1 (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id) VALUES (7566, date'1960-02-21', 'James', 'Brown', 'M', date'1991-04-02', 2450.00, 'CLERK', 20, 7839);
+INSERT INTO emp1 (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id) VALUES (7654, date'1963-12-09', 'Scott', 'Allen', 'M', date'1989-06-04', 2975.00, 'SALESMAN', 30, 7839);
+INSERT INTO emp1 (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id) VALUES (7934, date'1970-12-03', 'Adam', 'Martin', 'M', date'1993-07-09', 1300.00, 'CLERK', 30, 7839);
+INSERT INTO emp1 (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id) VALUES (7788, date'1961-05-23', 'Alan', 'Walker', 'M', date'1990-09-14', 3000.00, 'ANALYST', 20, 7566);
+INSERT INTO emp1 (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id) VALUES (7902, date'1958-11-07', 'Alice', 'Jones', 'F', date'1988-12-12', 1600.00, 'CLERK', 30, 7654);
+INSERT INTO emp1 (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id) VALUES (7876, date'1962-01-14', 'George', 'Black', 'M', date'1989-01-20', 1100.00, 'CLERK', 40, 7566);
+INSERT INTO emp1 (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id) VALUES (7844, date'1965-09-28', 'Diana', 'White', 'F', date'1992-05-21', 2950.00, 'SALESMAN', 30, 7654);
+INSERT INTO emp1 (emp_no, birth_date, first_name, last_name, gender, hire_date, salary, job, deptno, manager_id) VALUES (7900, date'1972-06-19', 'Bob', 'King', 'M', date'1991-08-18', 850.00, 'CLERK', 10, 7839);
+
+
+1. CREATE OR REPLACE PROCEDURE ndf (n IN NUMBER)
+   AS
+      vname   emp1.first_name%TYPE;
+      vsalary emp1.SALARY%TYPE;
+   BEGIN
+      SELECT first_name, SALARY
+      INTO vname, vsalary
+      FROM emp1
+      WHERE emp_no = n;
+
+      DBMS_OUTPUT.PUT_LINE('Name = ' || vname || ', Salary = ' || vsalary);
+
+   EXCEPTION
+      WHEN NO_DATA_FOUND THEN
+      DBMS_OUTPUT.PUT_LINE('emp_no = ' || n || ' not found');
+  END;
+  /
+
+
+CREATE TABLE st_info (
+    roll NUMBER,
+    name VARCHAR2(30),
+    sub1 NUMBER,
+    sub2 NUMBER,
+    sub3 NUMBER,
+    sub4 NUMBER,
+    total NUMBER,
+    perc NUMBER(5,2),
+    result VARCHAR2(10)
+);
+
+
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result) VALUES (1,'Amit',75,68,70,80,NULL,NULL,NULL); 
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result) VALUES (2,'Rahul',60,65,58,72,NULL,NULL,NULL);
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result) VALUES (3,'Priya',82,78,85,80,NULL,NULL,NULL);
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result) VALUES (4,'Neha',55,60,62,58,NULL,NULL,NULL);
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result) VALUES (5,'Rohit',45,50,48,52,NULL,NULL,NULL);
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result) VALUES (6,'Anita',90,88,92,85,NULL,NULL,NULL);
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result) VALUES (7,'Karan',70,72,68,75,NULL,NULL,NULL);
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result) VALUES (8,'Sneha',65,60,67,63,NULL,NULL,NULL);
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result) VALUES (9,'Vikas',50,55,60,58,NULL,NULL,NULL);
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result) VALUES (10,'Pooja',78,82,80,76,NULL,NULL,NULL);
+
+
+
+2. CREATE OR REPLACE PROCEDURE EXC2 (m1 IN NUMBER, m2 IN NUMBER, m3 IN NUMBER) 
+   AS
+   invalid_marks EXCEPTION;
+
+   BEGIN
+          IF m1 < 0 or m1 > 100 or m2 < 0 or m2 > 0 or m3 < 0 or m3 > 0
+		RAISE invalid_marks;
+	  ELSIF m1 > 50 and m2>50 and m3>50
+		DBMS_OUTPUT.PUT_LINE('RESULT: PASS');
+	  ELSE
+		DBMS_OUTPUT.PUT_LINE('RESULT: FAIL');
+	  END IF;
+
+  EXCEPTION
+  WHEN invalid_marks THEN
+       	DBMS_OUTPUT.PUT_LINE('Invalid Marks');
+  END;
+  /
