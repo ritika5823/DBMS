@@ -1,0 +1,208 @@
+# Without Input Taking From The User
+CASE 1
+SET SERVEROUTPUT ON;
+
+DECLARE
+    s1 NUMBER;
+    s2 NUMBER;
+    s3 NUMBER;
+    s4 NUMBER;
+    total NUMBER;
+    per NUMBER;
+BEGIN
+    s1 := 75;
+    s2 := 45;
+    s3 := 52;
+    s4 := 75;
+    IF s1 < 50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAILED IN s1');
+    ELSIF s2 < 50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAILED IN s2');
+    ELSIF s3 < 50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAILED IN s3');
+    ELSIF s4 < 50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAILED IN s4');
+    ELSE
+        total := s1 + s2 + s3 + s4;
+        per := (total/400)*100;
+
+        DBMS_OUTPUT.PUT_LINE('Result: PASS');
+        DBMS_OUTPUT.PUT_LINE('Total Marks: ' || total);
+        DBMS_OUTPUT.PUT_LINE('Percentage: ' || per);
+
+        IF per > 75 THEN
+            DBMS_OUTPUT.PUT_LINE('Division: DISTINCTION');
+        ELSIF per > 60 THEN
+            DBMS_OUTPUT.PUT_LINE('Division: FIRST DIVISION');
+        ELSIF per > 50 THEN
+            DBMS_OUTPUT.PUT_LINE('Division: SECOND DIVISION');
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Division: PASS');
+        END IF;
+    END IF;
+END;
+/
+case 1 output
+Result: FAILED IN s2
+PL/SQL procedure successfully completed.
+CASE 2
+SET SERVEROUTPUT ON;
+DECLARE
+    s1 NUMBER;
+    s2 NUMBER;
+    s3 NUMBER;
+    s4 NUMBER;
+    total NUMBER;
+    per NUMBER;
+BEGIN
+    s1 := 75;
+    s2 := 79;
+    s3 := 100;
+    s4 := 95;
+    IF s1 < 50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAILED IN s1');
+    ELSIF s2 < 50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAILED IN s2');
+    ELSIF s3 < 50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAILED IN s3');
+    ELSIF s4 < 50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAILED IN s4');
+    ELSE
+        total := s1 + s2 + s3 + s4;
+        per := (total/400)*100;
+
+        DBMS_OUTPUT.PUT_LINE('Result: PASS');
+        DBMS_OUTPUT.PUT_LINE('Total Marks: ' || total);
+        DBMS_OUTPUT.PUT_LINE('Percentage: ' || per);
+
+        IF per > 75 THEN
+            DBMS_OUTPUT.PUT_LINE('Division: DISTINCTION');
+        ELSIF per > 60 THEN
+            DBMS_OUTPUT.PUT_LINE('Division: FIRST DIVISION');
+        ELSIF per > 50 THEN
+            DBMS_OUTPUT.PUT_LINE('Division: SECOND DIVISION');
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Division: PASS');
+        END IF;
+    END IF;
+END;
+/
+case 2 output
+Result: PASS
+Total Marks: 349
+Percentage: 87.25
+Division: DISTINCTION
+
+PL/SQL procedure successfully completed.
+
+# With Input Taking From The User
+CASE 1
+SET SERVEROUTPUT ON;
+DECLARE
+    s1 NUMBER := &s1;
+    s2 NUMBER := &s2;
+    s3 NUMBER := &s3;
+    s4 NUMBER := &s4;
+    total NUMBER;
+    per NUMBER;
+BEGIN
+    IF s1 < 50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAILED IN s1');
+    ELSIF s2 < 50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAILED IN s2');
+    ELSIF s3 < 50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAILED IN s3');
+    ELSIF s4 < 50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAILED IN s4');
+    ELSE
+        total := s1 + s2 + s3 + s4;
+        per := (total/400)*100;
+
+        DBMS_OUTPUT.PUT_LINE('Result: PASS');
+        DBMS_OUTPUT.PUT_LINE('Total Marks: ' || total);
+        DBMS_OUTPUT.PUT_LINE('Percentage: ' || per);
+
+        IF per > 75 THEN
+            DBMS_OUTPUT.PUT_LINE('Division: DISTINCTION');
+        ELSIF per > 60 THEN
+            DBMS_OUTPUT.PUT_LINE('Division: FIRST DIVISION');
+        ELSIF per > 50 THEN
+            DBMS_OUTPUT.PUT_LINE('Division: SECOND DIVISION');
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Division: PASS');
+        END IF;
+    END IF;
+END;
+/
+case 1 output
+Enter value for s1: 65
+old   2:     s1 NUMBER := &s1;
+new   2:     s1 NUMBER := 65;
+Enter value for s2: 76
+old   3:     s2 NUMBER := &s2;
+new   3:     s2 NUMBER := 76;
+Enter value for s3: 8
+old   4:     s3 NUMBER := &s3;
+new   4:     s3 NUMBER := 8;
+Enter value for s4: 74
+old   5:     s4 NUMBER := &s4;
+new   5:     s4 NUMBER := 74;
+Result: FAILED IN s3
+PL/SQL procedure successfully completed.
+CASE 2
+SET SERVEROUTPUT ON;
+DECLARE
+    s1 NUMBER := &s1;
+    s2 NUMBER := &s2;
+    s3 NUMBER := &s3;
+    s4 NUMBER := &s4;
+    total NUMBER;
+    per NUMBER;
+BEGIN
+    IF s1 < 50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAILED IN s1');
+    ELSIF s2 < 50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAILED IN s2');
+    ELSIF s3 < 50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAILED IN s3');
+    ELSIF s4 < 50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAILED IN s4');
+    ELSE
+        total := s1 + s2 + s3 + s4;
+        per := (total/400)*100;
+
+        DBMS_OUTPUT.PUT_LINE('Result: PASS');
+        DBMS_OUTPUT.PUT_LINE('Total Marks: ' || total);
+        DBMS_OUTPUT.PUT_LINE('Percentage: ' || per);
+
+        IF per > 75 THEN
+            DBMS_OUTPUT.PUT_LINE('Division: DISTINCTION');
+        ELSIF per > 60 THEN
+            DBMS_OUTPUT.PUT_LINE('Division: FIRST DIVISION');
+        ELSIF per > 50 THEN
+            DBMS_OUTPUT.PUT_LINE('Division: SECOND DIVISION');
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Division: PASS');
+        END IF;
+    END IF;
+END;
+/
+case 2 output
+Enter value for s1: 75
+old   2:     s1 NUMBER := &s1;
+new   2:     s1 NUMBER := 75;
+Enter value for s2: 85
+old   3:     s2 NUMBER := &s2;
+new   3:     s2 NUMBER := 85;
+Enter value for s3: 95
+old   4:     s3 NUMBER := &s3;
+new   4:     s3 NUMBER := 95;
+Enter value for s4: 76
+old   5:     s4 NUMBER := &s4;
+new   5:     s4 NUMBER := 76;
+Result: PASS
+Total Marks: 331
+Percentage: 82.75
+Division: DISTINCTION
+
+PL/SQL procedure successfully completed.
