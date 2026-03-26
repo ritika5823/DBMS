@@ -1,0 +1,53 @@
+                                                               #Trigger for updating table...
+SQL> SET SERVEROUTPUT ON;
+Create or Replace Trigger Tri_upd
+  2  After update on st_info
+  3  Begin
+  4  DBMS_OUTPUT.PUT_LINE('This is statement level Trigger fired');
+  5   End;
+  6  /
+
+Trigger created.
+
+SQL> update st_info set m1 = m1-10;
+This is statement level Trigger fired
+
+14 rows updated.
+
+                                                 # Trigger for each row upating and output for each row...
+
+SQL> Create or Replace Trigger Tri_upd
+  2  After update on st_info for each row
+  3  Begin
+  4  DBMS_OUTPUT.PUT_LINE('This is row level Trigger fired');
+  5  End;
+  6  /
+
+Trigger created.
+
+SQL> update st_info set m1 = m1+20;
+This is row level Trigger fired
+This is row level Trigger fired
+This is row level Trigger fired
+This is row level Trigger fired
+This is row level Trigger fired
+This is row level Trigger fired
+This is row level Trigger fired
+This is row level Trigger fired
+This is row level Trigger fired
+This is row level Trigger fired
+This is row level Trigger fired
+This is row level Trigger fired
+This is row level Trigger fired
+This is row level Trigger fired
+
+14 rows updated.
+
+                                                               # Trigger for inserting...
+Create or Replace Trigger Tri_ins
+  2  After insert on st_info
+  3  Begin
+  4  DBMS_OUTPUT.PUT_LINE('This is statement level Trigger fired');
+  5  End;
+  6  /
+  Trigger Create.
