@@ -1,0 +1,69 @@
+CREATE TABLE employees (
+  2      emp_id     NUMBER PRIMARY KEY,
+  3      emp_name   VARCHAR2(50),
+  4      salary     NUMBER(10,2),
+  5      department VARCHAR2(50)
+  6  );
+
+Table created.
+
+SQL> INSERT INTO employees VALUES (1, 'Amit', 25000, 'HR');
+
+1 row created.
+
+SQL> INSERT INTO employees VALUES (2, 'Neha', 40000, 'IT');
+
+1 row created.
+
+SQL> INSERT INTO employees VALUES (3, 'Ravi', 18000, 'Sales');
+
+1 row created.
+
+SQL> INSERT INTO employees VALUES (4, 'Sneha', 50000, 'Finance');
+
+1 row created.
+
+SQL> INSERT INTO employees VALUES (5, 'Karan', 30000, 'IT');
+
+1 row created.
+
+SQL>
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> CREATE OR REPLACE PROCEDURE max_min_salary IS
+  2      v_max_salary NUMBER;
+  3      v_min_salary NUMBER;
+  4  BEGIN
+  5      SELECT MAX(salary), MIN(salary)
+  6      INTO v_max_salary, v_min_salary
+  7      FROM employees;
+  8
+  9      DBMS_OUTPUT.PUT_LINE('Maximum Salary: ' || v_max_salary);
+ 10      DBMS_OUTPUT.PUT_LINE('Minimum Salary: ' || v_min_salary);
+ 11  END;
+ 12  /
+
+Procedure created.
+
+SQL> set severoutput on;
+SP2-0735: unknown SET option beginning "severoutpu..."
+SQL> CREATE OR REPLACE TRIGGER trg_check_salary
+  2  BEFORE INSERT ON employees
+  3  FOR EACH ROW
+  4  BEGIN
+  5     IF :NEW.salary < 10000 THEN
+  6        RAISE_APPLICATION_ERROR(-20001, 'Salary must be at least 10000');
+  7     END IF;
+  8  END;
+  9  /
+
+Trigger created.
+
+SQL> set serveroutput on
+SQL> exec max_min_salary;
+Maximum Salary: 50000
+Minimum Salary: 18000
+
+PL/SQL procedure successfully completed.
