@@ -1,53 +1,84 @@
-                                                               #Trigger for updating table...
-SQL> SET SERVEROUTPUT ON;
-Create or Replace Trigger Tri_upd
-  2  After update on st_info
-  3  Begin
-  4  DBMS_OUTPUT.PUT_LINE('This is statement level Trigger fired');
-  5   End;
-  6  /
+CREATE TABLE st_info (
+    roll NUMBER,
+    name VARCHAR2(30),
+    sub1 NUMBER,
+    sub2 NUMBER,
+    sub3 NUMBER,
+    sub4 NUMBER,
+    total NUMBER,
+    perc NUMBER(5,2),
+    result VARCHAR2(10)
+);
 
-Trigger created.
 
-SQL> update st_info set m1 = m1-10;
-This is statement level Trigger fired
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result)
+VALUES (1,'Amit',75,68,70,80,NULL,NULL,NULL);
 
-14 rows updated.
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result)
+VALUES (2,'Rahul',60,65,58,72,NULL,NULL,NULL);
 
-                                                 # Trigger for each row upating and output for each row...
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result)
+VALUES (3,'Priya',82,78,85,80,NULL,NULL,NULL);
 
-SQL> Create or Replace Trigger Tri_upd
-  2  After update on st_info for each row
-  3  Begin
-  4  DBMS_OUTPUT.PUT_LINE('This is row level Trigger fired');
-  5  End;
-  6  /
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result)
+VALUES (4,'Neha',55,60,62,58,NULL,NULL,NULL);
 
-Trigger created.
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result)
+VALUES (5,'Rohit',45,50,48,52,NULL,NULL,NULL);
 
-SQL> update st_info set m1 = m1+20;
-This is row level Trigger fired
-This is row level Trigger fired
-This is row level Trigger fired
-This is row level Trigger fired
-This is row level Trigger fired
-This is row level Trigger fired
-This is row level Trigger fired
-This is row level Trigger fired
-This is row level Trigger fired
-This is row level Trigger fired
-This is row level Trigger fired
-This is row level Trigger fired
-This is row level Trigger fired
-This is row level Trigger fired
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result)
+VALUES (6,'Anita',90,88,92,85,NULL,NULL,NULL);
 
-14 rows updated.
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result)
+VALUES (7,'Karan',70,72,68,75,NULL,NULL,NULL);
 
-                                                               # Trigger for inserting...
-Create or Replace Trigger Tri_ins
-  2  After insert on st_info
-  3  Begin
-  4  DBMS_OUTPUT.PUT_LINE('This is statement level Trigger fired');
-  5  End;
-  6  /
-  Trigger Create.
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result)
+VALUES (8,'Sneha',65,60,67,63,NULL,NULL,NULL);
+
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result)
+VALUES (9,'Vikas',50,55,60,58,NULL,NULL,NULL);
+
+INSERT INTO st_info (roll, name, sub1, sub2, sub3, sub4, total, perc, result)
+VALUES (10,'Pooja',78,82,80,76,NULL,NULL,NULL);
+
+
+1> To perform trigger-
+CREATE OR REPLACE Trigger tri_upd
+AFTER update on st_info
+BEGIN
+DBMS_OUTPUT.PUT_LINE('This statement is level tiggered fired');
+END;
+/
+
+2> Update st_info set SUB1=SUB1-10;
+
+3> CREATE OR REPLACE Trigger tri_upd1
+AFTER update on st_info for each row
+BEGIN
+DBMS_OUTPUT.PUT_LINE('This row is level tiggered fired');
+END;
+/ 
+Update st_info set SUB1=SUB1+10;
+
+4> Update st_info set SUB1=SUB1+10 where SUB1>80;
+
+5> CREATE OR REPLACE Trigger C_tri_ins
+BEFORE update on st_info
+BEGIN
+if: new.Sub1<0 or :new.Sub1>100
+Raise Application error('Marks not in range');
+END;
+/
+
+
+CREATE OR REPLACE Trigger C_tri_ins
+BEFORE update on st_info
+BEGIN
+DBMS_OUTPUT.PUT_LINE('This row is level tiggered fired');
+
+END;
+/
+
+INERT INTO st_info (roll,name,sub1,sub2,sub3,sub4,total,perc,result)
+VALUES(1,'Kashish',75,77,67,66,NULL,NULL,NULL);
+This is row level Trigger fired
